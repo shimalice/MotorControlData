@@ -15,6 +15,16 @@ class ExperimentData(object):
         files = listdir(targetDir)
         return files, targetDir
 
+    def _getAnalogData(self, experimentID, name_data, flatten=False):
+        files, targetDir = self._experimentfiles_L(experimentID)
+        for fileName in files:
+            if fileName.startswith(name_data):
+                df = pd.read_csv(targetDir + '/' + fileName, header=None)
+                data = df.values
+                if flatten:
+                    data = data.ravel()
+        return data
+
     def createSpikes_DF(self, experimentID):
         files, targetDir = self._experimentfiles_L(experimentID)
         unitDict = {}
@@ -32,24 +42,17 @@ class ExperimentData(object):
         return unitNames
 
     def getTrTargets_A(self, experimentID):
-        files, targetDir = self._experimentfiles_L(experimentID)
-        for fileName in files:
-            if fileName.startswith('trTarget'):
-                trTargetsDataFrame = pd.read_csv(targetDir + '/' + fileName, header=None)
-                trTargets = trTargetsDataFrame.values
-                trTargets = trTargets.ravel()
-        return trTargets
+        trTarget = self._getAnalogData(experimentID, name_data='trTarget', flatten=True)
+        return trTarget
 
-    def getTbhv(self, experimentID):
-        files, targetDir = self._experimentfiles_L(experimentID)
-        for fileName in files:
-            if fileName.startswith('Tbhv'):
-                Tbhv = self.read_csv(targetDir + '/' + fileName, header=None)
-        return Tbhv.values
+    def getTbhv_A(self, experimentID):
+        Tbhv = self._getAnalogData(experimentID, name_data='Tbhv')
+        return Tbhv
 
-    def getANdat(self, experimentID):
-        files, targetDir = self._experimentfiles_L(experimentID)
-        for fileName in files:
-            if fileName.startswith('ANdat'):
-                ANdat = self.read_csv(targetDir + '/' + fileName, header=None)
-        return ANdat.values
+    def getANdat_A(self, experimentID):
+        ANdat = self._getAnalogData(experimentID, name_data='ANdat')
+        return ANdat
+
+    def getAnalogAx_A(self, experimentID):
+        analogAx = self._getAnalogData(experimentID, name_data='analogAx', flatten=True)
+        return analogAx
