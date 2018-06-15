@@ -34,6 +34,7 @@ class NeoObject():
         trial_num = len(SpikesDataFrame)
         for trial_index in range(trial_num):
             seg = Segment(name='trial %i' % trial_index, index=trial_index)
+            seg.annotate(trTarget=trTarget[trial_index])
             blk.segments.append(seg)
 
         # create a channel index
