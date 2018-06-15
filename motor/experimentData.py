@@ -41,7 +41,7 @@ class ExperimentData(object):
         unitNames = np.array(unitNames)
         return unitNames
 
-    def getTrTargets_A(self, experimentID):
+    def getTrTarget_A(self, experimentID):
         trTarget = self._getAnalogData(experimentID, name_data='trTarget', flatten=True)
         return trTarget
 

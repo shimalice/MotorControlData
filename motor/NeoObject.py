@@ -2,7 +2,7 @@ from os import listdir
 import pandas as pd
 import numpy as np
 from quantities import s, ms
-from neo.core import Block, Segment, ChannelIndex, Unit, SpikeTrain, AnalogSignal
+from neo.core import Block, Segment, ChannelIndex, Unit, SpikeTrain, AnalogSignal, Event
 from experimentData import ExperimentData
 
 class NeoObject():
@@ -17,6 +17,14 @@ class NeoObject():
         SpikesDataFrame = eData.createSpikes_DF(experimentID)
         # prepate unitNames
         unitNames = eData.getUnitNames_L(experimentID)
+        # prepare trTarget
+        trTarget = eData.getTrTarget_A(experimentID)
+        # prepare Tbhv
+        Tbhv_A = eData.getTbhv_A(experimentID)
+        # prepare ANdat
+        ANdat_A = eData.getANdat_A(experimentID)
+        # prepare analogAx
+        analogAx = eData.getAnalogAx_A(experimentID)
 
         # create a Block of m4404ee
         blk = Block(name=experimentID)
@@ -50,5 +58,9 @@ class NeoObject():
 
                 unit = [unit for unit in chx.units if unit.name == unitName][0]
                 unit.spiketrains.append(spikeTrain)
+
+        # set ANdat into segment
+        for trial_index, seg in enumerate(blk.segments):
+            ANdat = AnalogSignal()
 
         return blk
