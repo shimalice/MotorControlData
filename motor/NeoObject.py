@@ -20,7 +20,8 @@ class NeoObject():
         # prepare trTarget
         trTarget = eData.getTrTarget_A(experimentID)
         # prepare Tbhv
-        Tbhv_A = eData.getTbhv_A(experimentID)
+        Tbhv = eData.getTbhv_A(experimentID)
+        TbhvLabels = np.array(['start of trials','in Center','cue onset','go signals','move onset','in peripheral target','reward','end of trials'])
         # prepare ANdat
         ANdat_A = eData.getANdat_A(experimentID)
         # prepare analogAx
@@ -59,8 +60,9 @@ class NeoObject():
                 unit = [unit for unit in chx.units if unit.name == unitName][0]
                 unit.spiketrains.append(spikeTrain)
 
-        # set ANdat into segment
+        # set Tbhv into segment
         for trial_index, seg in enumerate(blk.segments):
-            ANdat = AnalogSignal()
+            evt = Event(Tbhv[trial_index]*ms, labels=TbhvLabels, name='Tbhv')
+            seg.events.append(evt)
 
         return blk
