@@ -21,7 +21,7 @@ class NeoObject():
         trTarget = eData.getTrTarget_A(experimentID)
         # prepare Tbhv
         Tbhv = eData.getTbhv_A(experimentID)
-        TbhvLabels = np.array(['start of trials','in Center','cue onset','go signals','move onset','in peripheral target','reward','end of trials'])
+        TbhvLabels = np.array(['start of trials','in Center','cue onset','go signals','move onset','in peripheral target'])
         # prepare ANdat
         ANdat_A = eData.getANdat_A(experimentID)
         # prepare analogAx

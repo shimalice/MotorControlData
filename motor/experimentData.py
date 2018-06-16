@@ -47,7 +47,7 @@ class ExperimentData(object):
 
     def getTbhv_A(self, experimentID):
         Tbhv = self._getAnalogData(experimentID, name_data='Tbhv')
-        return Tbhv[:,:8]
+        return Tbhv[:,:6]
 
     def getANdat_A(self, experimentID):
         ANdat = self._getAnalogData(experimentID, name_data='ANdat')
