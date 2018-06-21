@@ -48,7 +48,7 @@ class NeoObject():
 
         # starting time and stoppingtime of trial
         startTime = -1000
-        stopTime = 4001
+        stopTime = 3001
 
         # set spike trains into segment and unit
         for trial_index, seg in enumerate(blk.segments):

@@ -32,7 +32,7 @@ class ExperimentData(object):
             if fileName.startswith('unit') & fileName.endswith('.binaryfile'):
                 fh = open(targetDir + '/' + fileName, 'rb')
                 unit = pickle.load(fh)
-                unitDict[unit.Name] = unit.Spikes
+                unitDict[unit.Loc+':'+unit.Name] = unit.Spikes
         return pd.DataFrame(unitDict)
 
     def getUnitNames_L(self, experimentID):
