@@ -14,8 +14,12 @@ def _make_path(CLUSTER_NAME='fig'):
     IMAGES_PATH = os.path.join(PROJECT_ROOT_DIR, "images", CLUSTER_NAME)
     return IMAGES_PATH
 
-def save_fig(fig_dir, fig_id, fig_extension="png", resolution=300):
+def save_fig(fig_dir, fig_id, fig_extension="png"):
     IMAGES_PATH = _make_path(fig_dir)
     path = os.path.join(IMAGES_PATH, fig_id + "." + fig_extension)
     print("Saving figure", fig_id)
-    plt.savefig(path, format=fig_extension, dpi=resolution)
+    try:
+        plt.savefig(path, format=fig_extension)
+    except FileNotFoundError:
+        os.mkdir(IMAGES_PATH)
+        plt.savefig(path, format=fig_extension)
