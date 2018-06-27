@@ -67,3 +67,18 @@ class NeoObject():
             seg.events.append(evt)
 
         return blk
+
+    def binarize_spiketrain(spiketrain, sampling_rate=None, t_start=None, t_stop=None, type='int'):
+        units = spiketrain.units
+        if t_start is None:
+            t_start = spiketrain.t_start
+        if t_stop is None:
+            t_stop = spiketrains.t_stop
+
+        t_start = t_start.rescale(units).magnitude
+        t_stop = t_stop.rescale(units).magnitude
+
+        edges = np.arange(t_start, t_stop)
+        res = np.histogram(spiketrain, edges)[0].astype(type)
+
+        return res
